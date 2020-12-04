@@ -1,0 +1,21 @@
+<% current_board = Board.find(params[:id]) %>
+<div class="row">
+  <div class="col-sm-3">
+    <div class="card mb-3">
+      <img class="text-center card-img-top mt-2" src="<%= current_board.book_thumbnail_link %>">
+      <div class="card-body">
+        <h4 class="card-title"><%= current_board.book_title %></h4>
+        <h5 class="card-text"><%= current_board.book_author %></h5>
+        <h6 class="card-text">掲示板作成者：<%= User.find(current_board.user_id).name %></h6>
+        <p class="card-text">作成日時：<br><%= current_board.created_at %></p>
+      </div>
+    </div>
+    <%= link_to 'コメント投稿', new_board_comment_path(current_board.id), class: 'btn btn-dark btn-block' %>
+  </div>
+  
+  
+  
+  <div class="col-sm-9">
+    
+  </div>
+</div>
