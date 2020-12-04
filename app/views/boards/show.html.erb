@@ -12,10 +12,14 @@
     </div>
     <%= link_to 'コメント投稿', new_board_comment_path(current_board.id), class: 'btn btn-dark btn-block' %>
   </div>
-  
-  
-  
-  <div class="col-sm-9">
-    
+
+  <div class="col-sm-8 offset-sm-1">
+    <% @comments = current_board.comments.order(id: :desc).page(params[:page]).per(50) %>
+    <% @comments.each do |comment| %>
+      <div class="mb-3">
+        <h4><%= comment.id %> <%= User.find(comment.user_id).name %> <%= comment.created_at %></h4>
+        <h4 class="ml-3"><%= comment.content %></h4>
+      </div>
+    <% end %>
   </div>
 </div>
