@@ -15,10 +15,12 @@
 
   <div class="col-sm-8 offset-sm-1">
     <% @comments = current_board.comments.order(id: :desc).page(params[:page]).per(50) %>
+    <% comment_count = @comments.count %>
     <% @comments.each do |comment| %>
       <div class="row mb-3">
         <div class="col-sm-11">
-          <h4><%= comment.id %> <%= User.find(comment.user_id).name %> <%= comment.created_at %></h4>
+          <h4><%= comment_count %> <%= User.find(comment.user_id).name %> <%= comment.created_at %></h4>
+          <% comment_count -= 1 %>
           <h5 class="ml-3"><%= raw(h(comment.content).gsub(/\r\n|\r|\n/, "<br>")) %></h5>
         </div>
         <div class="col-sm-1">
