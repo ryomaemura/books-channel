@@ -11,7 +11,7 @@ class BoardsController < ApplicationController
       flash[:success] = '掲示板を作成しました。'
       redirect_to boards_url
     else
-      flash[:danger] = '掲示板の作成に失敗しました。'
+      flash.now[:danger] = '掲示板の作成に失敗しました。'
       render :new
     end
   end
