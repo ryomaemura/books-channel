@@ -3,20 +3,24 @@
 
 <% if @books_data %>
   <div class="row">
-    <% @books_data["items"].each do |book| %>
-      <div class="col-sm-3 card">
-        <%= form_with(model: @board, url: '/boards', local: true) do |f| %>
-          <%= hidden_field_tag :book_thumbnail_link, book.dig("volumeInfo", "imageLinks", "thumbnail") %>
-          <%= hidden_field_tag :book_title, book.dig("volumeInfo", "title") %>
-          <%= hidden_field_tag :book_author, book.dig("volumeInfo", "authors", 0) %>
-          <%= f.submit '作成', class: 'btn btn-dark btn-block my-2' %>
-        <% end %>
-        <img class="text-center card-img-top" src="<%= book.dig("volumeInfo", "imageLinks", "thumbnail") %>">
-        <div class="card-body">
-          <h4 class="card-text"><%= book.dig("volumeInfo", "title") %></h4>
-          <h5 class="card-title"><%= book.dig("volumeInfo", "authors", 0) %></h5>
+    <% if @books_data.dig("items") %>
+      <% @books_data["items"].each do |book| %>
+        <div class="col-sm-3 card">
+          <%= form_with(model: @board, url: '/boards', local: true) do |f| %>
+            <%= hidden_field_tag :book_thumbnail_link, book.dig("volumeInfo", "imageLinks", "thumbnail") %>
+            <%= hidden_field_tag :book_title, book.dig("volumeInfo", "title") %>
+            <%= hidden_field_tag :book_author, book.dig("volumeInfo", "authors", 0) %>
+            <%= f.submit '作成', class: 'btn btn-dark btn-block my-2' %>
+          <% end %>
+          <img class="text-center card-img-top" src="<%= book.dig("volumeInfo", "imageLinks", "thumbnail") %>" alt="<%= book.dig("volumeInfo", "title") %>">
+          <div class="card-body">
+            <h4 class="card-text"><%= book.dig("volumeInfo", "title") %></h4>
+            <h5 class="card-title"><%= book.dig("volumeInfo", "authors", 0) %></h5>
+          </div>
         </div>
-      </div>
+      <% end %>
+    <% else %>
+      <h2>本が見つかりませんでした</h2>
     <% end %>
   </div>
 <% end %>

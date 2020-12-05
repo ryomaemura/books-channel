@@ -1,5 +1,7 @@
 <div class="row">
   <div class="col-sm-6 offset-sm-3">
+    <h2>コメント投稿フォーム</h2>
+    <p>※255文字までしか投稿できません</p>
     <%= form_with(model: [@board, @comment], local: true) do |f| %>
       <div class="form-group">
         <%= f.text_area :content, class: 'form-control', rows: 6 %>

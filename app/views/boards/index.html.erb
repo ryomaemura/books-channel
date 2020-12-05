@@ -3,14 +3,13 @@
 </div>
 <div class="row">
   <% @boards.each do |board| %>
-    <form class="col-sm-3 card" action="/boards/<%= board.id %>">
-      <button style="cursor: pointer;">
-        <img class="text-center card-img-top mt-2" src="<%= board.book_thumbnail_link %>">
-        <div class="card-body">
-          <h4 class="card-title"><%= board.book_title %></h4>
-          <h5 class="card-text"><%= board.book_author %></h5>
-        </div>
-      </button>
-    </form>
+    <div class="col-sm-3 card">
+      <%= link_to 'この掲示板を見る',board_path(board.id) , class: 'btn btn-light btn-block my-2' %>
+      <img class="text-center card-img-top mt-2" src="<%= board.book_thumbnail_link %>" alt="<%= board.book_title %>">
+      <div class="card-body">
+        <h4 class="card-title"><%= board.book_title %></h4>
+        <h5 class="card-text"><%= board.book_author %></h5>
+      </div>
+    </div>
   <% end %>
 </div>

@@ -13,9 +13,12 @@ class CommentsController < ApplicationController
       flash[:success] = 'コメントを投稿しました。'
       redirect_to board_url(params[:board_id])
     else
+      if @comment.content.blank?
+        flash.now[:danger] = '1文字以上入力して下さい'
+      else
+        flash.now[:danger] = 'コメントの投稿に失敗しました。'
+      end
       @board = Board.find(params[:board_id])
-      @comment = @board.comments.build
-      flash.now[:danger] = 'コメントの投稿に失敗しました。'
       render :new
     end
   end

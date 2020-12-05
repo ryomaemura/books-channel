@@ -14,6 +14,8 @@ Rails.application.routes.draw do
 
   get 'books/search', to: 'boards#new'
   
+  get 'boards/:board_id/comments', to: 'comments#new'
+  
   resources :boards, only: [:index, :show, :new, :create] do
     resources :comments, only: [:new, :create, :destroy]
   end
