@@ -3,17 +3,20 @@ class CommentsController < ApplicationController
 
   def new
     @board = Board.find(params[:board_id])
-    @comment = @board.comments.build
+    @comment = current_user.comments.build
   end
 
   def create
-    @comment = Board.find(params[:board_id]).comments.build(content: comment_params, user_id: current_user.id)
+    @comment = current_user.comments.build(comment_params)
+    @comment.board_id = params[:board_id]
     if @comment.save
       flash[:success] = 'コメントを投稿しました。'
       redirect_to board_url(params[:board_id])
     else
+      @board = Board.find(params[:board_id])
+      @comment = @board.comments.build
       flash.now[:danger] = 'コメントの投稿に失敗しました。'
-      render 'comments/new'
+      render :new
     end
   end
 
